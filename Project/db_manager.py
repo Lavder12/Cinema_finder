@@ -12,7 +12,7 @@ class DBManager:
             print(f"Ошибка подключения к базе данных: {e}")
             raise
 
-    def find_movies_by_year(self, year):
+    def find_movies_by_year(self, year): ## Задача выполняется исправно!
         query = """
                 SELECT f.title, cat.name 
                 FROM sakila.film f 
@@ -25,9 +25,9 @@ class DBManager:
         self.cursor.execute(query, (year,))
         return self.cursor.fetchall()
 
-    def find_movies_by_genre(self, genre):
+    def find_movies_by_genre(self, genre):  ## Задача выполняется исправно!
         query = """
-        SELECT f.title, cat.name 
+        SELECT f.title, f.release_year 
         FROM sakila.film f 
         JOIN sakila.film_category fc ON fc.film_id = f.film_id 
         JOIN sakila.category cat ON fc.category_id = cat.category_id 

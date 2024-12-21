@@ -22,9 +22,9 @@ class User:
                 if genre_or_year == 'жанр':
                     genre = input('Введите Жанр: ')
                     movies = self.db_manager.find_movies_by_genre(genre)
-                    print("Фильмы:")
+                    print("Результат поиска: ")
                     for movie in movies:
-                        print(f"- {movie['title']}")
+                        print(f"- {movie['title']} ------ {movie['release_year']}")
                 elif genre_or_year == 'год':
                     year = input('Введите Год: ')
                     movies = self.db_manager.find_movies_by_year(year)
