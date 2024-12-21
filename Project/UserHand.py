@@ -15,7 +15,7 @@ class User:
             commands = input('Введите ваш запрос!')
 
             if commands == '1':
-                keyword = input().lower()
+                keyword = input('Введите ключевое слово: ').lower()
                 movies = self.db_manager.find_movies_by_keyword(keyword)
                 print("Результат поиска: ")
                 for movie in movies:

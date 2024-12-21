@@ -38,17 +38,30 @@ class DBManager:
         self.cursor.execute(query, (genre,))
         return self.cursor.fetchall()
 
-    def find_movies_by_keyword(self, keyword): ## Задача выполняется исправно!
+    def find_movies_by_keyword(self, keyword):
         query = """
-        SELECT title 
-        FROM sakila.film_text
-        WHERE LOWER(film_text.description) LIKE LOWER(%s)
+        SELECT f.title
+        FROM sakila.film f
+        JOIN sakila.film_actor fa
+        ON f.film_id = fa.film_id
+        JOIN sakila.actor ac
+        ON fa.actor_id = ac.actor_id
+        JOIN sakila.film_text ft
+        ON ft.film_id = f.film_id
+        JOIN sakila.language lg
+        ON f.language_id = lg.language_id
+        WHERE LOWER(ft.description) LIKE LOWER(%s)
+        OR LOWER(ac.first_name) LIKE LOWER(%s)
+        OR LOWER(ac.last_name) LIKE LOWER(%s)
+        OR LOWER(lg.name) LIKE LOWER(%s) -- language_id заменён на name, так как language_id — это число
         ORDER BY RAND()
         LIMIT 10
         """
         # Добавляем подстановочные символы для поиска
         keyword_with_wildcards = f"%{keyword}%"
-        self.cursor.execute(query, (keyword_with_wildcards,))
+        # Передаём параметр для каждого %s в запросе
+        self.cursor.execute(query, (
+        keyword_with_wildcards, keyword_with_wildcards, keyword_with_wildcards, keyword_with_wildcards))
         return self.cursor.fetchall()
 
     def frequently_used_queries(self, queries):
