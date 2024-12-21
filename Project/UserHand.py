@@ -37,5 +37,14 @@ class User:
                         print(f"- {movie['title']} ---- {movie['name']}")
 
             elif commands == '3':
-                pass
-
+                print('1. Вывести последние 5 запросов')
+                print('2. Вывести самый популярный запрос')
+                change = input('Выберите нужный вариант:')
+                if change == '1':
+                    movies = self.db_manager.search_queries()
+                    for movie in movies:
+                        print(movie['query'])
+                elif change == '2':
+                    movies = self.db_manager.search_count()
+                    for movie in movies:
+                        print(movie['query'])

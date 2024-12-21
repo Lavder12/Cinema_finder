@@ -27,7 +27,7 @@ class DBManager:
 
         # Сохраняем ключевое слово в таблицу search_keywords
         save_keyword_query = """
-                    INSERT INTO frequently_used_queries (keyword) VALUES (%s)
+                    INSERT INTO search_queries (query) VALUES (%s)
                     """
         self.cursor.execute(save_keyword_query, (year,))
         self.connection.commit()  # Сохраняем изменения в базе данных
@@ -49,7 +49,7 @@ class DBManager:
 
         # Сохраняем ключевое слово в таблицу search_keywords
         save_keyword_query = """
-                    INSERT INTO frequently_used_queries (keyword) VALUES (%s)
+                    INSERT INTO search_queries (query) VALUES (%s)
                     """
         self.cursor.execute(save_keyword_query, (genre,))
         self.connection.commit()  # Сохраняем изменения в базе данных
@@ -84,7 +84,7 @@ class DBManager:
 
         # Сохраняем ключевое слово в таблицу search_keywords
         save_keyword_query = """
-            INSERT INTO frequently_used_queries (keyword) VALUES (%s)
+            INSERT INTO search_queries (query) VALUES (%s)
             """
         self.cursor.execute(save_keyword_query, (keyword,))
         self.connection.commit()  # Сохраняем изменения в базе данных
@@ -92,31 +92,25 @@ class DBManager:
         return movies
 
 
-    def frequently_used_queries(self, queries):
-        pass
+    def search_queries(self):
+        query = """
+        SELECT query FROM sakila.search_queries
+        order by created_at desc
+        Limit 10"""
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def search_count(self):
+        query = """
+        SELECT query, COUNT(*) as order_count
+        FROM sakila.search_queries
+        GROUP BY query
+        order by order_count desc
+        limit 5
+"""
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
 
 
 
