@@ -3,7 +3,7 @@ class User:
         self.db_manager = db_manager
 
     def start(self):
-        while True:
+        while True: ## флаги
             print('\nКоманды')
             print('1. Поиск по ключевому слову') ## Готово
             print('2. Поиск по жанру или году выпуска фильма') ## Готово
