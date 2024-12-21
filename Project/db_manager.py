@@ -51,8 +51,8 @@ class DBManager:
         self.cursor.execute(query, (keyword_with_wildcards,))
         return self.cursor.fetchall()
 
-    # def find_movies_by_genre(self, genre):
-    #     pass
+    def frequently_used_queries(self, queries):
+        pass
 
 
 
