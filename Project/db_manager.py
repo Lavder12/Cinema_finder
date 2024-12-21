@@ -14,7 +14,7 @@ class DBManager:
 
     def find_movies_by_year(self, year):
         query = """
-                SELECT f.title, cat.name 
+                SELECT f.title 
                 FROM sakila.film f 
                 JOIN sakila.film_category fc ON fc.film_id = f.film_id 
                 JOIN sakila.category cat ON fc.category_id = cat.category_id 

@@ -34,7 +34,7 @@ class User:
                     movies = self.db_manager.find_movies_by_year(year)
                     print("Фильмы:")
                     for movie in movies:
-                        print(f"- {movie['title']} ---- {movie['name']}")
+                        print(f"- {movie['title']}")
 
             elif commands == '3':
                 print('1. Вывести последние 5 запросов')
