@@ -23,7 +23,16 @@ class DBManager:
                 LIMIT 10
                 """
         self.cursor.execute(query, (year,))
-        return self.cursor.fetchall()
+        movies = self.cursor.fetchall()
+
+        # Сохраняем ключевое слово в таблицу search_keywords
+        save_keyword_query = """
+                    INSERT INTO frequently_used_queries (keyword) VALUES (%s)
+                    """
+        self.cursor.execute(save_keyword_query, (year,))
+        self.connection.commit()  # Сохраняем изменения в базе данных
+
+        return movies
 
     def find_movies_by_genre(self, genre):
         query = """
@@ -36,7 +45,16 @@ class DBManager:
         LIMIT 10
         """
         self.cursor.execute(query, (genre,))
-        return self.cursor.fetchall()
+        movies = self.cursor.fetchall()
+
+        # Сохраняем ключевое слово в таблицу search_keywords
+        save_keyword_query = """
+                    INSERT INTO frequently_used_queries (keyword) VALUES (%s)
+                    """
+        self.cursor.execute(save_keyword_query, (genre,))
+        self.connection.commit()  # Сохраняем изменения в базе данных
+
+        return movies
 
     def find_movies_by_keyword(self, keyword):
         query = """
@@ -53,7 +71,7 @@ class DBManager:
         WHERE LOWER(ft.description) LIKE LOWER(%s)
         OR LOWER(ac.first_name) LIKE LOWER(%s)
         OR LOWER(ac.last_name) LIKE LOWER(%s)
-        OR LOWER(lg.name) LIKE LOWER(%s) -- language_id заменён на name, так как language_id — это число
+        OR LOWER(lg.name) LIKE LOWER(%s)
         ORDER BY RAND()
         LIMIT 10
         """
@@ -62,7 +80,17 @@ class DBManager:
         # Передаём параметр для каждого %s в запросе
         self.cursor.execute(query, (
         keyword_with_wildcards, keyword_with_wildcards, keyword_with_wildcards, keyword_with_wildcards))
-        return self.cursor.fetchall()
+        movies = self.cursor.fetchall()
+
+        # Сохраняем ключевое слово в таблицу search_keywords
+        save_keyword_query = """
+            INSERT INTO frequently_used_queries (keyword) VALUES (%s)
+            """
+        self.cursor.execute(save_keyword_query, (keyword,))
+        self.connection.commit()  # Сохраняем изменения в базе данных
+
+        return movies
+
 
     def frequently_used_queries(self, queries):
         pass
