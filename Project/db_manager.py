@@ -38,8 +38,18 @@ class DBManager:
         self.cursor.execute(query, (genre,))
         return self.cursor.fetchall()
 
-    def find_movies_by_keyword(self, keyword):
-        pass
+    def find_movies_by_keyword(self, keyword): ## Задача выполняется исправно!
+        query = """
+        SELECT title 
+        FROM sakila.film_text
+        WHERE LOWER(film_text.description) LIKE LOWER(%s)
+        ORDER BY RAND()
+        LIMIT 10
+        """
+        # Добавляем подстановочные символы для поиска
+        keyword_with_wildcards = f"%{keyword}%"
+        self.cursor.execute(query, (keyword_with_wildcards,))
+        return self.cursor.fetchall()
 
     # def find_movies_by_genre(self, genre):
     #     pass

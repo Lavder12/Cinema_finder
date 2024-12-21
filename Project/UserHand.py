@@ -5,7 +5,7 @@ class User:
     def start(self):
         while True:
             print('\nКоманды')
-            print('1. Поиск по ключевому слову')
+            print('1. Поиск по ключевому слову') ## Готово
             print('2. Поиск по жанру или году выпуска фильма') ## Готово
             print('3. Список самых популярных запросов')
             print('Выход')
@@ -15,7 +15,11 @@ class User:
             commands = input('Введите ваш запрос!')
 
             if commands == '1':
-                pass
+                keyword = input().lower()
+                movies = self.db_manager.find_movies_by_keyword(keyword)
+                print("Результат поиска: ")
+                for movie in movies:
+                    print(f"- {movie['title']}")
 
             elif commands == '2':
                 genre_or_year = input('Жанр/Год ').lower()
