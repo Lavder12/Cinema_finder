@@ -1,3 +1,6 @@
+
+
+
 class User:
     def __init__(self, db_manager):
         self.db_manager = db_manager
@@ -13,6 +16,7 @@ class User:
 
 
             commands = input('Введите ваш запрос!')
+
 
             if commands == '1':
                 keyword = input('Введите ключевое слово: ').lower()
