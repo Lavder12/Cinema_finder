@@ -26,12 +26,10 @@ class Const:
         ON f.film_id = fa.film_id
         JOIN sakila.actor ac
         ON fa.actor_id = ac.actor_id
-        JOIN sakila.film_text ft
-        ON ft.film_id = f.film_id
         JOIN sakila.language lg
         ON f.language_id = lg.language_id
-        WHERE LOWER(ft.description) LIKE LOWER(%s)
-        OR LOWER(ac.first_name) LIKE LOWER(%s)
+        WHERE LOWER(ac.first_name) LIKE LOWER(%s)
+        OR LOWER(f.title) LIKE LOWER(%s)
         OR LOWER(ac.last_name) LIKE LOWER(%s)
         OR LOWER(lg.name) LIKE LOWER(%s)
         ORDER BY RAND()
@@ -39,43 +37,19 @@ class Const:
         """
 
     search_queries = """
-        SELECT query FROM sakila.search_queries
+        SELECT query_text FROM Vladyslav_Habelko.search_queries
         ORDER BY created_at DESC 
-        LIMIT 10"""
-
-    search_count = """
-        SELECT query, COUNT(*) as order_count
-        FROM sakila.search_queries
-        GROUP BY query
-        ORDER BY order_count DESC 
         LIMIT 5"""
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    search_count = """
+        SELECT query_text, COUNT(*) as order_count
+        FROM Vladyslav_Habelko.search_queries
+        GROUP BY query_text
+        ORDER BY order_count DESC 
+        LIMIT 1"""
 
 
 
     save_keyword_query = """
-                        INSERT INTO search_queries (query) VALUES (%s)
+                        INSERT INTO Vladyslav_Habelko.search_queries (query_text) VALUES (%s)
                         """

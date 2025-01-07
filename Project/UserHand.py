@@ -3,7 +3,7 @@ class User:
         self.db_manager = db_manager
 
     def start(self):
-        while True: ## флаги
+        while True:
             print('\nКоманды')
             print('1. Поиск по ключевому слову') ## Готово
             print('2. Поиск по жанру или году выпуска фильма') ## Готово
@@ -23,14 +23,16 @@ class User:
                     print(f"- {movie['title']}")
 
             elif commands == '2':
-                genre_or_year = input('Жанр/Год ').lower()
-                if genre_or_year == 'жанр':
+                print('1. Жанр')
+                print('2. Год')
+                genre_or_year = input('Выберите вариант:  ').lower()
+                if genre_or_year == '1':
                     genre = input('Введите Жанр: ')
                     movies = self.db_manager.find_movies_by_genre(genre)
                     print("Фильмы:")
                     for movie in movies:
                         print(f"- {movie['title']}")
-                elif genre_or_year == 'год':
+                elif genre_or_year == '2':
                     year = input('Введите Год: ')
                     movies = self.db_manager.find_movies_by_year(year)
                     print("Фильмы:")
@@ -44,8 +46,8 @@ class User:
                 if change == '1':
                     movies = self.db_manager.search_queries()
                     for movie in movies:
-                        print(movie['query'])
+                        print(movie['query_text'])
                 elif change == '2':
                     movies = self.db_manager.search_count()
                     for movie in movies:
-                        print(movie['query'])
+                        print(movie['query_text'])
