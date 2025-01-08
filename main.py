@@ -7,9 +7,9 @@ def db_config():
     dotenv.load_dotenv()
 
     dbconfig = {'host': os.environ.get('host_read'),
-            'user': os.environ.get('user_read'),
-            'password': os.environ.get('password_read'),
-            'database': 'sakila'}
+                'user': os.environ.get('user_read'),
+                'password': os.environ.get('password_read'),
+                'database': 'sakila'}
     return dbconfig
 
 def db_conf_write():
