@@ -4,24 +4,20 @@ from Const import Const
 
 
 class DBManager:
-    def __init__(self, dbconfig,db_conf_write):
-        try:
-            self.connection_read = mysql.connector.connect(**dbconfig)
+    def __init__(self, dbconfig, db_conf_write):
+        self.connection_read = self._connect_to_db(dbconfig, "чтение")
+        self.connection_write = self._connect_to_db(db_conf_write, "запись")
+        self.cursor_read = self.connection_read.cursor(dictionary=True)
+        self.cursor_write = self.connection_write.cursor(dictionary=True)
 
-            if self.connection_read.is_connected():
-                print("Успешное подключение к базе данных")
-                self.cursor_read = self.connection_read.cursor(dictionary=True)
-        except Error as e:
-            print(f"Ошибка подключения к базе данных: {e}")
-            raise
-
+    def _connect_to_db(self, config, purpose):
         try:
-            self.connection_write = mysql.connector.connect(**db_conf_write)
-            if self.connection_write.is_connected():
-                print("Успешное подключение к базе данных")
-                self.cursor_write = self.connection_write.cursor(dictionary=True)
+            connection = mysql.connector.connect(**config)
+            if connection.is_connected():
+                print(f"Успешное подключение к базе данных ({purpose})")
+            return connection
         except Error as e:
-            print(f"Ошибка подключения к базе данных: {e}")
+            print(f"Ошибка подключения к базе данных ({purpose}): {e}")
             raise
 
 
@@ -74,12 +70,10 @@ class DBManager:
         return self.cursor_write.fetchall()
 
     def close(self):
-        if self.connection_read.is_connected():
-            self.cursor_read.close()
-            self.connection_read.close()
-            print("Соединение с базой данных (чтение) закрыто")
+        self._close_connection(self.connection_read, "чтение")
+        self._close_connection(self.connection_write, "запись")
 
-        if self.connection_write.is_connected():
-            self.cursor_write.close()
-            self.connection_write.close()
-            print("Соединение с базой данных (запись) закрыто")
+    def _close_connection(self, connection, purpose):
+        if connection.is_connected():
+            connection.close()
+            print(f"Соединение с базой данных ({purpose}) закрыто")
