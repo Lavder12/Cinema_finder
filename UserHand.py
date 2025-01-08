@@ -7,8 +7,8 @@ class User:
             print('\nКоманды')
             print('1. Поиск по ключевому слову') ## Готово
             print('2. Поиск по жанру или году выпуска фильма') ## Готово
-            print('3. Список самых популярных запросов')
-            print('Выход')
+            print('3. Список самых популярных запросов') ## Готово
+            print('Выход') ## Готово
             print()
 
 
@@ -51,3 +51,5 @@ class User:
                     movies = self.db_manager.search_count()
                     for movie in movies:
                         print(movie['query_text'])
+            elif commands == 'q':
+                break

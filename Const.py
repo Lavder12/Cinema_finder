@@ -20,21 +20,21 @@ class Const:
         """
 
     find_movies_by_keyword = """
-        SELECT f.title
-        FROM sakila.film f
-        JOIN sakila.film_actor fa
-        ON f.film_id = fa.film_id
-        JOIN sakila.actor ac
-        ON fa.actor_id = ac.actor_id
-        JOIN sakila.language lg
-        ON f.language_id = lg.language_id
-        WHERE LOWER(ac.first_name) LIKE LOWER(%s)
-        OR LOWER(f.title) LIKE LOWER(%s)
-        OR LOWER(ac.last_name) LIKE LOWER(%s)
-        OR LOWER(lg.name) LIKE LOWER(%s)
-        ORDER BY RAND()
-        LIMIT 10
-        """
+            SELECT DISTINCT f.title
+            FROM sakila.film f
+            JOIN sakila.film_actor fa
+            ON f.film_id = fa.film_id
+            JOIN sakila.actor ac
+            ON fa.actor_id = ac.actor_id
+            JOIN sakila.language lg
+            ON f.language_id = lg.language_id
+            WHERE LOWER(ac.first_name) LIKE LOWER(%s)
+            OR LOWER(f.title) LIKE LOWER(%s)
+            OR LOWER(ac.last_name) LIKE LOWER(%s)
+            OR LOWER(lg.name) LIKE LOWER(%s)
+            ORDER BY RAND()
+            LIMIT 10
+            """
 
     search_queries = """
         SELECT query_text FROM Vladyslav_Habelko.search_queries
