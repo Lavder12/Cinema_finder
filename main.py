@@ -4,11 +4,10 @@ from application import Application
 
 if __name__ == '__main__':
     # Создание объектов для управления музыкой и основным приложением
-    music_file = "Promise.wav"
+    music_file = "resources/Promise.wav"
     music_player = MusicPlayer(music_file)
     music_player.play_music()
-
-    # Запуск основного приложения
+   # Запуск основного приложения
     app = Application()
     app.run()
 
