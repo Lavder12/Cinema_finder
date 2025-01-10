@@ -61,7 +61,11 @@ class User:
     def start(self):
         while True:
             self.show_menu()
-            command = input('Введите ваш запрос: ').strip().lower()
+            try:                                                            ## исправлена проблема с закрытием прогргаммы в ручную.
+                command = input('Введите ваш запрос: ').strip().lower()
+            except KeyboardInterrupt:
+                print("\nПрограмма была остановлена пользователем.")
+                exit(0)  # Или выполните любую другую очистку перед завершением работы
 
             if command == '1':
                 self.search_by_keyword()
