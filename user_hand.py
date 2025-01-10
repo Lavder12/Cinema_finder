@@ -44,7 +44,7 @@ class User:
             queries = self.db_manager.search_count()
             self.print_queries(queries)
 
-    def print_movie_titles(self, movies):
+    def print_movie_titles(self, movies): ## Обьеденить с print_queries
         if not movies:
             print("Нет результатов.")
         else:

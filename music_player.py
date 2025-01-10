@@ -7,7 +7,7 @@ import pygame
 import time
 
 class MusicPlayer:
-    def __init__(self, music_file, volume=0.2):
+    def __init__(self, music_file, volume=0.1):
         self.music_file = music_file
         self.volume = volume
 
