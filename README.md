@@ -1,4 +1,5 @@
 # RU
+<img src="resources/icon.jpg" alt="Описание" width="100" height="100">
 
 # Movie Search Application 🎥🔍
 
@@ -120,6 +121,7 @@ python main.py
 ___
 
 # ENG
+<img src="resources/icon.jpg" alt="icon" width="100" height="100">
 
 
 # Movie Search Application 🎥🔍
