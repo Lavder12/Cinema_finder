@@ -61,6 +61,7 @@ class User:
     def start(self):
         while True:
             self.show_menu()
+
             try:                                                            ## исправлена проблема с закрытием прогргаммы в ручную.
                 command = input('Введите ваш запрос: ').strip().lower()
             except KeyboardInterrupt:
