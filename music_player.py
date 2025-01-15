@@ -20,7 +20,8 @@ class MusicPlayer:
         pygame.mixer.music.set_volume(self.volume)  # Установить громкость
         pygame.mixer.music.play(-1)  # -1 означает бесконечное воспроизведение
 
-    def fade_out_music(self, fade_time=5):
+    @staticmethod
+    def fade_out_music(fade_time=5):
         """
         Плавно уменьшает громкость музыки до 0 перед остановкой.
         """

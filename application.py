@@ -11,7 +11,8 @@ class Application:
         self.db_manager = DBManager(self.dbconf, self.db_conf_write)
         self.ui = User(self.db_manager)
 
-    def db_config(self):
+    @staticmethod
+    def db_config():
         dotenv.load_dotenv()
 
         dbconfig = {'host': os.environ.get('host_read'),
@@ -20,7 +21,8 @@ class Application:
                     'database': 'sakila'}
         return dbconfig
 
-    def db_conf_write(self):
+    @staticmethod
+    def db_conf_write():
         dotenv.load_dotenv()
         dbconfig = {'host': os.environ.get('host_write'),
                     'user': os.environ.get('user_write'),

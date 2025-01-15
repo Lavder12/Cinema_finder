@@ -10,7 +10,8 @@ class DBManager:
         self.cursor_read = self.connection_read.cursor(dictionary=True)
         self.cursor_write = self.connection_write.cursor(dictionary=True)
 
-    def _connect_to_db(self, config, purpose):
+    @staticmethod
+    def _connect_to_db(config, purpose):
         try:
             connection = mysql.connector.connect(**config)
             if connection.is_connected():
@@ -73,7 +74,8 @@ class DBManager:
         self._close_connection(self.connection_read, "чтение")
         self._close_connection(self.connection_write, "запись")
 
-    def _close_connection(self, connection, purpose):
+    @staticmethod
+    def _close_connection(connection, purpose):
         if connection.is_connected():
             connection.close()
             print(f"Соединение с базой данных ({purpose}) закрыто")

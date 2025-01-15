@@ -1,8 +1,12 @@
+from time import sleep
+
+
 class User:
     def __init__(self, db_manager):
         self.db_manager = db_manager
 
-    def show_menu(self):
+    @staticmethod
+    def show_menu():
         print('\nКоманды:')
         print('1. Поиск по ключевому слову')
         print('2. Поиск по жанру или году выпуска фильма')
@@ -44,14 +48,16 @@ class User:
             queries = self.db_manager.search_count()
             self.print_queries(queries)
 
-    def print_movie_titles(self, movies): ## Обьеденить с print_queries
+    @staticmethod
+    def print_movie_titles(movies):
         if not movies:
             print("Нет результатов.")
         else:
             for movie in movies:
                 print(f"- {movie['title']}")
 
-    def print_queries(self, queries):
+    @staticmethod
+    def print_queries(queries):
         if not queries:
             print("Нет популярных запросов.")
         else:
@@ -61,12 +67,11 @@ class User:
     def start(self):
         while True:
             self.show_menu()
-
-            try:                                                            ## исправлена проблема с закрытием прогргаммы в ручную.
+            try:
                 command = input('Введите ваш запрос: ').strip().lower()
             except KeyboardInterrupt:
                 print("\nПрограмма была остановлена пользователем.")
-                exit(0)  # Или выполните любую другую очистку перед завершением работы
+                exit(0)
 
             if command == '1':
                 self.search_by_keyword()
